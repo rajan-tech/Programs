@@ -1,0 +1,37 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity delay_gen is
+  port (clk,reset : in std_logic; 
+        delay_cycles : in unsigned(31 downto 0);   --delay to be generated.
+        flag : out std_logic --this is a pulse to notify that time interval equal to delay is over.
+    );
+end delay_gen;
+
+architecture Behavioral of delay_gen is
+
+signal count : unsigned(31 downto 0) := (others => '0');
+
+begin
+
+process(clk,reset)
+begin
+    if(reset = '1') then
+        flag <= '0';
+        count <= (others => '0');
+    elsif(rising_edge(clk)) then
+    --when the necessary delay is achieved, reset count and set flag high
+        if(count = delay_cycles-1) then 
+            count <= (others => '0');
+            flag <= '1';
+        else
+            flag <= '0';
+            count <= count +1;   --increment counter otherwise.
+        end if; 
+    end if;
+
+    
+end process;
+
+end Behavioral;
