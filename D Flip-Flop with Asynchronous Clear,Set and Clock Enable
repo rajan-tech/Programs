@@ -1,0 +1,38 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+--This is a D Flip-Flop with Asynchronous Clear,Set and Clock Enable(negedge clock).
+--Note that the clear input has the highest priority,preset being the next highest
+--priority and clock enable having the lowest priority
+entity example_FDCPE is 
+   port(
+      Q : out std_logic;      -- Data output
+      CLK :in std_logic;      -- Clock input
+      CE :in std_logic;    -- Clock enable input
+      CLR :in std_logic;  -- Asynchronous clear input
+      D :in  std_logic;      -- Data input
+      PRE : in std_logic   -- Asynchronous set input
+   );
+end example_FDCPE;
+
+architecture Behavioral of example_FDCPE is  --architecture of the circuit.
+
+begin  --"begin" statement for architecture.
+
+process(CLR,PRE,CLK) --process with sensitivity list.
+begin  --"begin" statment for the process. 
+
+    if (CLR = '1') then  --Asynchronous clear input
+           Q <= '0';
+    else 
+           if(PRE = '1') then  --Asynchronous set input
+               Q <= '1';
+           else 
+               if ( CE = '1' and  falling_edge(CLK) ) then 
+                  Q <= D;       
+              end if;
+          end if;
+   end if;
+
+end process;  --end of process statement.
+
+end Behavioral; 
