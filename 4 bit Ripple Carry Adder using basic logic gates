@@ -2,7 +2,6 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 
---entity declaration with port definitions
 entity rc_adder is
 port(    num1 : in std_logic_vector(3 downto 0);  --4 bit input 1
             num2 :      in std_logic_vector(3 downto 0);  -- 4 bit input 2
