@@ -10,7 +10,7 @@ port (
         );
 end ring_counter;
 
-architecture Behavioral of ring_counter is
+architecture Behav of ring_counter is
 
 signal temp : unsigned(3 downto 0):=(others => '0');
 
@@ -32,4 +32,4 @@ begin
     end if;
 end process;
     
-end Behavioral;
+end Behav;
